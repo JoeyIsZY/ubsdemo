@@ -47,7 +47,7 @@ pipeline {
                         }
                         stage('deploy') {
                             when {
-                                branch 'master'
+                                branch 'main'
                             }
                             steps {
                                 script {
@@ -64,13 +64,13 @@ pipeline {
                         }
                         stage('run') {
                             when {
-                                branch 'master'
+                                branch 'main'
                             }
                             steps {
                                 script {
                                     sh label: 'build', script: '''
                                     echo "Download package from s3 bucket..."
-                                    uvicorn main:app --host 0.0.0.0
+                                    nohup uvicorn main:app --host 0.0.0.0 &
                                     '''
                                 }
                             }
