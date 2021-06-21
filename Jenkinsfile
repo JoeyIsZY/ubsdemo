@@ -71,15 +71,15 @@ pipeline {
                         // Slack notifications
                         success {
                             sh label: 'success', script: 'echo "Success"'
-                            slackSend channel: 'notifications', color: 'good', message: "<${env.BUILD_URL}|${env.JOB_NAME} #${env.BUILD_NUMBER}> - Build completed successfully"
+                            slackSend channel: 'jenkins-noti', color: 'good', message: "<${env.BUILD_URL}|${env.JOB_NAME} #${env.BUILD_NUMBER}> - Build completed successfully"
                         }
                         failure {
                             sh label: 'failure', script: 'echo "Failure"'
-                            slackSend channel: 'notifications', color: 'danger', message: "<${env.BUILD_URL}|${env.JOB_NAME} #${env.BUILD_NUMBER}> - Build failed"
+                            slackSend channel: 'jenkins-noti', color: 'danger', message: "<${env.BUILD_URL}|${env.JOB_NAME} #${env.BUILD_NUMBER}> - Build failed"
                         }
                         aborted {
                             sh label: 'aborted', script: 'echo "Aborted"'
-                            slackSend channel: 'notifications', color: 'danger', message: "<${env.BUILD_URL}|${env.JOB_NAME} #${env.BUILD_NUMBER}> - Build aborted"
+                            slackSend channel: 'jenkins-noti', color: 'danger', message: "<${env.BUILD_URL}|${env.JOB_NAME} #${env.BUILD_NUMBER}> - Build aborted"
                         }
                         always {
                             sh label: 'Linux build done', script: 'echo "Done Linux build"'
