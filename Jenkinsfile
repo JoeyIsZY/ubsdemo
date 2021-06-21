@@ -12,7 +12,7 @@ pipeline {
                 println "Build started"
             }
         }
-        stage('Linux env Build') {
+        stage('Linux CICD') {
             parallel {
                 stage('linux') {
                     agent {
@@ -91,7 +91,7 @@ pipeline {
                         }
                         always {
                             sh label: 'Linux build done', script: 'echo "Done Linux build"'
-                            cleanWs()
+                            #cleanWs()
                         }
                     }
                 }
