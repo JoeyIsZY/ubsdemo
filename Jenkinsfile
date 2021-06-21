@@ -23,9 +23,6 @@ pipeline {
                         stage('setup') {
                             steps {
                                 sh label: 'Active python venv', script: '''
-                                    #source /var/lib/jenkins/python-venvs/testenv/bin/activate
-                                    #pip install --upgrade pip
-                                    #pip install -r requirements.txt
                                     echo "==========Create virtual env=========="
                                     python3.8 -m venv venv
                                     source venv/bin/activate
@@ -70,6 +67,8 @@ pipeline {
                                 script {
                                     sh label: 'build', script: '''
                                     echo "Download package from s3 bucket..."
+                                    source venv/bin/activate
+                                    export PYTHONPATH="./app"
                                     nohup uvicorn main:app --host 0.0.0.0 &
                                     '''
                                 }
