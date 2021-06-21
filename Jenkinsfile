@@ -26,7 +26,12 @@ pipeline {
                                     #source /var/lib/jenkins/python-venvs/testenv/bin/activate
                                     #pip install --upgrade pip
                                     #pip install -r requirements.txt
-                                    ls
+                                    echo "==========Create virtual env=========="
+                                    python3.8 -m venv venv
+                                    source venv/bin/activate
+                                    pip install --upgrade pip
+                                    pip install -r requirements.txt
+                                    echo "==========End virtual env=========="
                                     '''
                             }
                         }
