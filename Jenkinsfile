@@ -26,7 +26,7 @@ pipeline {
                                     #source /var/lib/jenkins/python-venvs/testenv/bin/activate
                                     #pip install --upgrade pip
                                     #pip install -r requirements.txt
-                                    echo setup
+                                    ls
                                     '''
                             }
                         }
