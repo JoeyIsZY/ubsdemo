@@ -38,13 +38,10 @@ pipeline {
                         stage('build') {
                             steps {
                                 sh label: 'build', script: '''
-                                    #source /var/lib/jenkins/python-venvs/testenv/bin/activate
-                                    #cd test-project
-                                    #tox
-                                    #python setup.py sdist
-                                    #python setup.py bdist_wheel
-                                    #ls ./
-                                    echo build
+                                    echo "==========Testing and building=========="
+                                    export PYTHONPATH="./app"
+                                    python -m unittest
+                                    echo "==========Testing and building=========="
                                     '''
                             }
                         }
@@ -60,13 +57,20 @@ pipeline {
                                     // println "Version is $version"
                                     // sh label: 'Publish file', script: "deploy to you package management system"
                                     sh label: 'build', script: '''
-                                    #source /var/lib/jenkins/python-venvs/testenv/bin/activate
-                                    #cd test-project
-                                    #tox
-                                    #python setup.py sdist
-                                    #python setup.py bdist_wheel
-                                    #ls ./
-                                    echo deploy
+                                    echo "Deploy to s3 bucket..."
+                                    '''
+                                }
+                            }
+                        }
+                        stage('run') {
+                            when {
+                                branch 'master'
+                            }
+                            steps {
+                                script {
+                                    sh label: 'build', script: '''
+                                    echo "Download package from s3 bucket..."
+                                    uvicorn main:app --host 0.0.0.0
                                     '''
                                 }
                             }
